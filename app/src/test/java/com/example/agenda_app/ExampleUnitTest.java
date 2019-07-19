@@ -34,6 +34,7 @@ public class ExampleUnitTest {
         assertEquals(State.COMPLETE, n.getState());
         n.setState(State.DOING);
         assertEquals(State.DOING, n.getState());
+        assertEquals("DOING", n.getState() + "");
     }
 
     @Test

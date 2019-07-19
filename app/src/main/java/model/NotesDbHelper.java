@@ -1,10 +1,10 @@
 package model;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.security.acl.NotOwnerException;
 
 public class NotesDbHelper extends SQLiteOpenHelper {
 
@@ -12,6 +12,7 @@ public class NotesDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "notes.db";
     private static final int DATABASE_VERSION = 1;
+
 
     public static synchronized NotesDbHelper getInstance(Context context) {
         if (sInstance == null) {
@@ -26,23 +27,32 @@ public class NotesDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE " + NotesContract.NotesEntry.TABLE_NAME
-                + " (" + NotesContract.NotesEntry.ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + NotesContract.NotesEntry.DURATION + " REAL,"
-                + NotesContract.NotesEntry.HOUR + " INTEGER NOT NULL,"
-                + NotesContract.NotesEntry.MINUTE + " INTEGER NOT NULL,"
-                + NotesContract.NotesEntry.SECONDS + " INTEGER NOT NULL,"
-                + NotesContract.NotesEntry.STATE + " TEXT NOT NULL,"
-                + NotesContract.NotesEntry.PRIORITY + " INTEGER NOT NULL,"
-                + NotesContract.NotesEntry.GRP + " TEXT,"
-                + NotesContract.NotesEntry.DES + " TEXT NOT NULL)");
-        sqLiteDatabase.execSQL("CREATE INDEX index_gruop ON " + NotesContract.NotesEntry.TABLE_NAME
-                + " (" + NotesContract.NotesEntry.GRP + " )");
+        sqLiteDatabase.execSQL(NotesContract.CREATE_TABLE);
+        sqLiteDatabase.execSQL(NotesContract.CREATE_INDEX);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        sqLiteDatabase.execSQL(NotesContract.DELETE_TABLE);
+        onCreate(sqLiteDatabase);
+    }
+
+    public void insertInto(Note note){
+        SQLiteDatabase db = sInstance.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(NotesContract.NotesEntry.DURATION, note.getDuration());
+        values.put(NotesContract.NotesEntry.HOUR, note.getTime().getHour());
+        values.put(NotesContract.NotesEntry.MINUTE, note.getTime().getMinutes());
+        values.put(NotesContract.NotesEntry.SECONDS, note.getTime().getSeconds());
+        values.put(NotesContract.NotesEntry.STATE, note.getState() + "");
+        values.put(NotesContract.NotesEntry.PRIORITY, note.getPriority() ? 1 : 0);
+        values.put(NotesContract.NotesEntry.GRP, note.getGroup());
+        values.put(NotesContract.NotesEntry.DES, note.getDescription());
+
+        long newRowId = db.insert(NotesContract.NotesEntry.TABLE_NAME, null, values);
 
     }
+
+
 }

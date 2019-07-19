@@ -1,10 +1,7 @@
 package com.example.agenda_app;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-
-import model.NotesDbHelper;
 
 public class MainActivity extends AppCompatActivity {
 
