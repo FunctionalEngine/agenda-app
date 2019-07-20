@@ -1,4 +1,4 @@
-package model;
+package com.example.agenda_app.model;
 
 import android.content.ContentValues;
 import android.content.Context;

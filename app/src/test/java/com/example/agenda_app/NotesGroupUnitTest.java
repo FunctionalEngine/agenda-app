@@ -4,11 +4,10 @@ import org.junit.Test;
 
 import java.util.Iterator;
 
-import model.Group;
-import model.GroupNotes;
-import model.Note;
-import model.State;
-import model.Time;
+import com.example.agenda_app.model.NotesGroup;
+import com.example.agenda_app.model.Note;
+import com.example.agenda_app.model.State;
+import com.example.agenda_app.model.Time;
 
 import static org.junit.Assert.*;
 
@@ -17,31 +16,12 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class ExampleUnitTest {
-    @Test
-    public void struct_of_class_Note_null_atributes() {
-        Note n = new Note("nota", new Time(13,3,10), true);
-
-        assertEquals(null, n.getDuration());
-        assertEquals(null, n.getGroup());
-    }
-
-    @Test
-    public void struct_of_class_Note_states() {
-        Note n = new Note("nota", new Time(13,3,10), true);
-        assertEquals(State.INCOMPLETE, n.getState());
-        n.setState(State.COMPLETE);
-        assertEquals(State.COMPLETE, n.getState());
-        n.setState(State.DOING);
-        assertEquals(State.DOING, n.getState());
-        assertEquals("DOING", n.getState() + "");
-    }
-
+public class NotesGroupUnitTest {
     @Test
     public void class_GroupNotes_basic_operation() {
         Note n0 = new Note("n0",new Time(3,3,3),true, "violonchelo");
-        GroupNotes g0 = new GroupNotes("violonchelo");
-        GroupNotes g1 = new GroupNotes("Flauta");
+        NotesGroup g0 = new NotesGroup("violonchelo");
+        NotesGroup g1 = new NotesGroup("Flauta");
         assertEquals(true,g0.add(n0));
         assertNotEquals(true,g1.add(n0));
         assertEquals(true,g1.isEmpty());
@@ -59,7 +39,7 @@ public class ExampleUnitTest {
 
     @Test
     public void class_GroupNotes_createIterator_operation() {
-        GroupNotes g1 = new GroupNotes("Flauta");
+        NotesGroup g1 = new NotesGroup("Flauta");
         for (int i = 0; i < 10; i++) {
             g1.add(new Note("n1",new Time(3,4,5 + i),true,"Flauta"));
         }

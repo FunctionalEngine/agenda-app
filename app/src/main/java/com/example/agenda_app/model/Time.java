@@ -1,4 +1,4 @@
-package model;
+package com.example.agenda_app.model;
 
 public class Time {
     private int hour,minutes,seconds;

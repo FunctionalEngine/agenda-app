@@ -1,14 +1,14 @@
-package model;
+package com.example.agenda_app.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class GroupNotes implements Group {
+public class NotesGroup implements Group {
 
     private ArrayList<Note> listNotes;
     private String name_group;
 
-    public GroupNotes(String name_group){
+    public NotesGroup(String name_group){
         listNotes = new ArrayList<>();
         this.name_group = name_group;
     }
