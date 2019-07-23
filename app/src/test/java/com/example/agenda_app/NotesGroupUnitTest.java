@@ -2,12 +2,11 @@ package com.example.agenda_app;
 
 import org.junit.Test;
 
+import java.time.LocalDateTime;
 import java.util.Iterator;
 
 import com.example.agenda_app.model.NotesGroup;
 import com.example.agenda_app.model.Note;
-import com.example.agenda_app.model.State;
-import com.example.agenda_app.model.Time;
 
 import static org.junit.Assert.*;
 
@@ -19,7 +18,7 @@ import static org.junit.Assert.*;
 public class NotesGroupUnitTest {
     @Test
     public void class_GroupNotes_basic_operation() {
-        Note n0 = new Note("n0",new Time(3,3,3),true, "violonchelo");
+        Note n0 = new Note("n0", LocalDateTime.of(2015,4,7,12,59,30),true, "violonchelo");
         NotesGroup g0 = new NotesGroup("violonchelo");
         NotesGroup g1 = new NotesGroup("Flauta");
         assertEquals(true,g0.add(n0));
@@ -27,7 +26,7 @@ public class NotesGroupUnitTest {
         assertEquals(true,g1.isEmpty());
         assertEquals(false,g0.isEmpty());
         for (int i = 0; i < 10; i++) {
-            g1.add(new Note("n1",new Time(3,4,5 + i),true,"Flauta"));
+            g1.add(new Note("n1",LocalDateTime.of(2015,4,7,12,59,30),true,"Flauta"));
         }
         assertEquals(10,g1.length());
         assertEquals(1,g0.length());
@@ -41,7 +40,7 @@ public class NotesGroupUnitTest {
     public void class_GroupNotes_createIterator_operation() {
         NotesGroup g1 = new NotesGroup("Flauta");
         for (int i = 0; i < 10; i++) {
-            g1.add(new Note("n1",new Time(3,4,5 + i),true,"Flauta"));
+            g1.add(new Note("n1",LocalDateTime.of(2015 + i,4,7,12,59,30),true,"Flauta"));
         }
         int pos = 0;
         Iterator i = g1.createIterator();

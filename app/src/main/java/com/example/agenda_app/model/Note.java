@@ -1,15 +1,17 @@
 package com.example.agenda_app.model;
 
 
+import java.time.LocalDateTime;
+
 public class Note {
     private String description;
     private Double duration;
-    private Time time;
+    private LocalDateTime time;
     private State state;
     private Boolean priority;
     private String group;
 
-    public Note(String description, Double duration, Time time, State state, Boolean priority, String group) {
+    public Note(String description, Double duration, LocalDateTime time, State state, Boolean priority, String group) {
         this.description = description;
         this.duration = duration;
         this.time = time;
@@ -18,7 +20,7 @@ public class Note {
         this.group = group;
     }
 
-    public Note(String description, Time time, State state, Boolean priority, String group) {
+    public Note(String description, LocalDateTime time, State state, Boolean priority, String group) {
         this.description = description;
         this.time = time;
         this.state = state;
@@ -26,7 +28,7 @@ public class Note {
         this.group = group;
     }
 
-    public Note(String description, Double duration, Time time, Boolean priority) {
+    public Note(String description, Double duration, LocalDateTime time, Boolean priority) {
         this.description = description;
         this.duration = duration;
         this.time = time;
@@ -34,14 +36,14 @@ public class Note {
         this.state = State.INCOMPLETE;
     }
 
-    public Note(String description, Time time, Boolean priority) {
+    public Note(String description, LocalDateTime time, Boolean priority) {
         this.description = description;
         this.time = time;
         this.priority = priority;
         this.state = State.INCOMPLETE;
     }
 
-    public Note(String description, Time time, Boolean priority, String group) {
+    public Note(String description, LocalDateTime time, Boolean priority, String group) {
         this.description = description;
         this.time = time;
         this.priority = priority;
@@ -57,7 +59,7 @@ public class Note {
         return duration;
     }
 
-    public Time getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
@@ -73,7 +75,7 @@ public class Note {
         this.duration = duration;
     }
 
-    public void setTime(Time time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

@@ -2,12 +2,10 @@ package com.example.agenda_app;
 
 import org.junit.Test;
 
-import java.util.Iterator;
+import java.time.LocalDateTime;
 
-import com.example.agenda_app.model.NotesGroup;
 import com.example.agenda_app.model.Note;
 import com.example.agenda_app.model.State;
-import com.example.agenda_app.model.Time;
 
 import static org.junit.Assert.*;
 
@@ -19,7 +17,7 @@ import static org.junit.Assert.*;
 public class NoteUnitTest {
     @Test
     public void struct_of_class_Note_null_atributes() {
-        Note n = new Note("nota", new Time(13,3,10), true);
+        Note n = new Note("nota", LocalDateTime.of(2015,4,7,12,59,30), true);
 
         assertEquals(null, n.getDuration());
         assertEquals(null, n.getGroup());
@@ -27,7 +25,7 @@ public class NoteUnitTest {
 
     @Test
     public void struct_of_class_Note_states() {
-        Note n = new Note("nota", new Time(13,3,10), true);
+        Note n = new Note("nota", LocalDateTime.of(2015,4,7,12,59,30), true);
         assertEquals(State.INCOMPLETE, n.getState());
         n.setState(State.COMPLETE);
         assertEquals(State.COMPLETE, n.getState());

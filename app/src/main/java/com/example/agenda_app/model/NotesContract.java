@@ -11,6 +11,9 @@ public class NotesContract {
 
         public static final String ID = "id";
         public static final String DURATION = "duration";
+        public static final String DAY = "day";
+        public static final String MONTH = "month";
+        public static final String YEAR = "year";
         public static final String HOUR = "hour";
         public static final String MINUTE = "minute";
         public static final String SECONDS = "seconds";
@@ -23,9 +26,12 @@ public class NotesContract {
     public static final String CREATE_TABLE = "CREATE TABLE " + NotesEntry.TABLE_NAME
             + " (" + NotesEntry.ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + NotesEntry.DURATION + " REAL,"
+            + NotesEntry.DAY + " INTEGER NOT NULL,"
+            + NotesEntry.MONTH + " INTEGER NOT NULL,"
+            + NotesEntry.YEAR + " INTEGER NOT NULL,"
             + NotesEntry.HOUR + " INTEGER NOT NULL,"
             + NotesEntry.MINUTE + " INTEGER NOT NULL,"
-            + NotesEntry.SECONDS + " INTEGER NOT NULL,"
+            + NotesEntry.SECONDS + " INTEGER NULL,"
             + NotesEntry.STATE + " TEXT NOT NULL,"
             + NotesEntry.PRIORITY + " INTEGER NOT NULL,"
             + NotesEntry.GRP + " TEXT,"
