@@ -59,7 +59,6 @@ public class NotesDbHelper extends SQLiteOpenHelper {
         values.put(NotesContract.NotesEntry.PRIORITY, note.getPriority() ? 1 : 0);
         values.put(NotesContract.NotesEntry.GRP, note.getGroup());
         values.put(NotesContract.NotesEntry.DES, note.getDescription());
-
         long newRowId = db.insert(NotesContract.NotesEntry.TABLE_NAME, null, values);
 
     }
