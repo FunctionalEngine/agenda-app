@@ -43,4 +43,7 @@ public class NotesContract {
     public static final String DELETE_TABLE =
             "DROP TABLE IF EXISTS " + NotesEntry.TABLE_NAME;
 
+    public static final String DELETE_ALL_NOTES =
+            "DELETE FROM " + NotesEntry.TABLE_NAME;
+
 }

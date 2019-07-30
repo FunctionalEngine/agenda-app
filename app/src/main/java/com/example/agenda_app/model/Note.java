@@ -10,6 +10,7 @@ public class Note {
     private State state;
     private Boolean priority;
     private String group;
+    private int id;
 
     public Note(String description, Double duration, LocalDateTime time, State state, Boolean priority, String group) {
         this.description = description;
@@ -49,6 +50,51 @@ public class Note {
         this.priority = priority;
         this.group = group;
         this.state = State.INCOMPLETE;
+    }
+
+    public Note(int id,String description, Double duration, LocalDateTime time, State state, Boolean priority, String group) {
+        this.description = description;
+        this.duration = duration;
+        this.time = time;
+        this.state = state;
+        this.priority = priority;
+        this.group = group;
+        this.id = id;
+    }
+
+    public Note(int id,String description, LocalDateTime time, State state, Boolean priority, String group) {
+        this.description = description;
+        this.time = time;
+        this.state = state;
+        this.priority = priority;
+        this.group = group;
+        this.id = id;
+    }
+
+    public Note(int id,String description, Double duration, LocalDateTime time, Boolean priority) {
+        this.description = description;
+        this.duration = duration;
+        this.time = time;
+        this.priority = priority;
+        this.state = State.INCOMPLETE;
+        this.id = id;
+    }
+
+    public Note(int id,String description, LocalDateTime time, Boolean priority) {
+        this.description = description;
+        this.time = time;
+        this.priority = priority;
+        this.state = State.INCOMPLETE;
+        this.id = id;
+    }
+
+    public Note(int id,String description, LocalDateTime time, Boolean priority, String group) {
+        this.description = description;
+        this.time = time;
+        this.priority = priority;
+        this.group = group;
+        this.state = State.INCOMPLETE;
+        this.id = id;
     }
 
     public String getDescription() {
@@ -101,5 +147,9 @@ public class Note {
 
     public void setGroup(String group) {
         this.group = group;
+    }
+
+    public int getId() {
+        return id;
     }
 }
