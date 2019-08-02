@@ -2,6 +2,7 @@ package com.example.agenda_app.model;
 
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Note {
     private String description;
@@ -10,13 +11,22 @@ public class Note {
     private State state;
     private Boolean priority;
     private String group;
-    private int id;
+    private Integer id;
 
     public Note(String description, Double duration, LocalDateTime time, State state, Boolean priority, String group) {
         this.description = description;
         this.duration = duration;
         this.time = time;
         this.state = state;
+        this.priority = priority;
+        this.group = group;
+    }
+
+    public Note(String description, Double duration, LocalDateTime time, Boolean priority, String group) {
+        this.description = description;
+        this.duration = duration;
+        this.time = time;
+        this.state = State.INCOMPLETE;
         this.priority = priority;
         this.group = group;
     }
@@ -151,5 +161,30 @@ public class Note {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Note)) return false;
+        Note note = (Note) o;
+        return Objects.equals(getDescription(), note.getDescription()) &&
+                Objects.equals(getDuration(), note.getDuration()) &&
+                Objects.equals(getTime(), note.getTime()) &&
+                getState() == note.getState() &&
+                Objects.equals(getPriority(), note.getPriority()) &&
+                Objects.equals(getGroup(), note.getGroup());
+    }
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "description='" + description + '\'' +
+                ", duration=" + duration +
+                ", time=" + time +
+                ", state=" + state +
+                ", priority=" + priority +
+                ", group='" + group + '\'' +
+                '}';
     }
 }

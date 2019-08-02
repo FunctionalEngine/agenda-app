@@ -69,4 +69,12 @@ public class NotesGroup implements Group {
             }
         };
     }
+
+    @Override
+    public String toString() {
+        return "NotesGroup{" +
+                "listNotes=" + listNotes +
+                ", name_group='" + name_group + '\'' +
+                '}';
+    }
 }

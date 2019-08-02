@@ -33,3 +33,15 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }
+
+android {
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+}
+
+dependencies {
+    testImplementation 'org.robolectric:robolectric:4.3'
+}

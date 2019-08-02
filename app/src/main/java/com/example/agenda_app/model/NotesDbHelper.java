@@ -1,5 +1,6 @@
 package com.example.agenda_app.model;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -64,6 +65,15 @@ public class NotesDbHelper extends SQLiteOpenHelper {
 
     }
 
+    public int getSize(){
+        SQLiteDatabase db = sInstance.getWritableDatabase();
+        Cursor mCount= db.rawQuery("select count(*) from " + NotesContract.NotesEntry.TABLE_NAME, null);
+        mCount.moveToFirst();
+        int count= mCount.getInt(0);
+        mCount.close();
+        return count;
+    }
+
     public boolean deleteAnyNote(int id){
         SQLiteDatabase db = sInstance.getWritableDatabase();
         String selection = NotesContract.NotesEntry.ID + " LIKE ?";
@@ -93,32 +103,95 @@ public class NotesDbHelper extends SQLiteOpenHelper {
         );
         List<Note> items = new ArrayList<>();
         while(cursor.moveToNext()) {
-            int id = cursor.getInt(0);
+            int id = cursor.getInt(cursor.getColumnIndex(NotesContract.NotesEntry.ID));
 
-            double duration = cursor.getDouble(1);
+            Double duration;
+            if(cursor.getDouble(cursor.getColumnIndex(NotesContract.NotesEntry.DURATION)) == 0.0){
+                duration = null;
+            } else {
+                duration = cursor.getDouble(cursor.getColumnIndex(NotesContract.NotesEntry.DURATION));
+            }
 
-            LocalDateTime date = LocalDateTime.of(cursor.getInt(4),cursor.getInt(3),cursor.getInt(2),
-                    cursor.getInt(5),cursor.getInt(6),cursor.getInt(7));
+            LocalDateTime date = LocalDateTime.of(cursor.getInt(cursor.getColumnIndex(NotesContract.NotesEntry.YEAR)),
+                    cursor.getInt(cursor.getColumnIndex(NotesContract.NotesEntry.MONTH)),
+                    cursor.getInt(cursor.getColumnIndex(NotesContract.NotesEntry.DAY)),
+                    cursor.getInt(cursor.getColumnIndex(NotesContract.NotesEntry.HOUR)),
+                    cursor.getInt(cursor.getColumnIndex(NotesContract.NotesEntry.MINUTE)),
+                    cursor.getInt(cursor.getColumnIndex(NotesContract.NotesEntry.SECONDS)));
 
             State state;
-            if(cursor.getString(8).equals("COMPLETE")){
+            if(cursor.getString(cursor.getColumnIndex(NotesContract.NotesEntry.STATE)).equals("COMPLETE")){
                 state = State.COMPLETE;
-            } else if (cursor.getString(8).equals("INCOMPLETE")){
+            } else if (cursor.getString(cursor.getColumnIndex(NotesContract.NotesEntry.STATE)).equals("INCOMPLETE")){
                 state = State.INCOMPLETE;
             } else {
                 state = State.DOING;
             }
 
-            Boolean priority = cursor.getInt(9) > 0;
+            String nameGroup = cursor.getString(cursor.getColumnIndex(NotesContract.NotesEntry.GRP));
 
-            String nameGroup = cursor.getString(10);
+            Boolean priority = cursor.getInt(cursor.getColumnIndex(NotesContract.NotesEntry.PRIORITY)) > 0;
 
-            String description = cursor.getString(11);
+            String description = cursor.getString(cursor.getColumnIndex(NotesContract.NotesEntry.DES));
 
             items.add(new Note(id,description,duration,date,state,priority,nameGroup));
         }
         cursor.close();
         return items;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public NotesGroup readGroupNotes(String nameGroup){
+        SQLiteDatabase db = sInstance.getReadableDatabase();
+
+        String selection = NotesContract.NotesEntry.GRP + " = ?";
+        String[] selectionArgs = { nameGroup };
+
+        Cursor cursor = db.query(
+                NotesContract.NotesEntry.TABLE_NAME,   // The table to query
+                null,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                null               // The sort order
+        );
+        NotesGroup notesGroup = new NotesGroup(nameGroup);
+        while(cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex(NotesContract.NotesEntry.ID));
+
+            Double duration;
+            if(cursor.getDouble(cursor.getColumnIndex(NotesContract.NotesEntry.DURATION)) == 0.0){
+                duration = null;
+            } else {
+                duration = cursor.getDouble(cursor.getColumnIndex(NotesContract.NotesEntry.DURATION));
+            }
+
+            LocalDateTime date = LocalDateTime.of(cursor.getInt(cursor.getColumnIndex(NotesContract.NotesEntry.YEAR)),
+                    cursor.getInt(cursor.getColumnIndex(NotesContract.NotesEntry.MONTH)),
+                    cursor.getInt(cursor.getColumnIndex(NotesContract.NotesEntry.DAY)),
+                    cursor.getInt(cursor.getColumnIndex(NotesContract.NotesEntry.HOUR)),
+                    cursor.getInt(cursor.getColumnIndex(NotesContract.NotesEntry.MINUTE)),
+                    cursor.getInt(cursor.getColumnIndex(NotesContract.NotesEntry.SECONDS)));
+
+            State state;
+            if(cursor.getString(cursor.getColumnIndex(NotesContract.NotesEntry.STATE)).equals("COMPLETE")){
+                state = State.COMPLETE;
+            } else if (cursor.getString(cursor.getColumnIndex(NotesContract.NotesEntry.STATE)).equals("INCOMPLETE")){
+                state = State.INCOMPLETE;
+            } else {
+                state = State.DOING;
+            }
+
+            Boolean priority = cursor.getInt(cursor.getColumnIndex(NotesContract.NotesEntry.PRIORITY)) > 0;
+
+            String description = cursor.getString(cursor.getColumnIndex(NotesContract.NotesEntry.DES));
+
+            notesGroup.add(new Note(id,description,duration,date,state,priority,nameGroup));
+        }
+        cursor.close();
+        return notesGroup;
+    }
+
 
 }
