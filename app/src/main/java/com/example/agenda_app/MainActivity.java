@@ -1,43 +1,77 @@
 package com.example.agenda_app;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.agenda_app.model.Note;
-import com.example.agenda_app.ui.NoteViewAdapter;
+import com.example.agenda_app.ui.CreateNoteFragment;
+import com.example.agenda_app.ui.NotesDisplayFragment;
 import com.example.agenda_app.viewmodel.NotesViewModel;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter noteViewAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    NotesViewModel model;
+    private final String NOTES_DISPLAY_FRAGMENT_TAG = "NOTES_DISPLAY";
+    private final String CREATE_NOTE_FRAGMENT_TAG = "CREATE_NOTE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        NotesViewModel model = ViewModelProviders.of(this).get(NotesViewModel.class);
-        model.getNotes().observe(this, notes -> {
-            showNotes(notes);
-        });
+        model = ViewModelProviders.of(this).get(NotesViewModel.class);
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().
+                    replace(
+                            R.id.fragments_wrapper,
+                            new NotesDisplayFragment(),
+                            NOTES_DISPLAY_FRAGMENT_TAG).
+                    commit();
+        }
 
         setContentView(R.layout.activity_main);
     }
 
-    private void showNotes(List<Note> notes) {
-        recyclerView = (RecyclerView) findViewById(R.id.notes_recycler_view);
-
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        noteViewAdapter = new NoteViewAdapter(notes);
-        recyclerView.setAdapter(noteViewAdapter);
+    public void launchCreateNoteActivity(View view){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(
+                R.id.fragments_wrapper,
+                new CreateNoteFragment(),
+                CREATE_NOTE_FRAGMENT_TAG
+        );
+        fragmentTransaction.hide(fragmentManager.findFragmentByTag(NOTES_DISPLAY_FRAGMENT_TAG));
+        fragmentTransaction.commit();
     }
+
+    public void returnMainActivity(View view){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.show(fragmentManager.findFragmentByTag(NOTES_DISPLAY_FRAGMENT_TAG));
+        fragmentTransaction.remove(fragmentManager.findFragmentByTag(CREATE_NOTE_FRAGMENT_TAG));
+        fragmentTransaction.commit();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void createNewNote(View view){
+        Note note = new Note(
+                ((EditText) findViewById(R.id.description)).getText().toString(),
+                LocalDateTime.now(),
+                ((CheckBox) findViewById(R.id.priority_check)).isChecked()
+        );
+        model.createNote(getApplicationContext(), note);
+        returnMainActivity(view);
+    }
+
 }

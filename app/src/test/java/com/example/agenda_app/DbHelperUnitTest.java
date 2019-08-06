@@ -13,7 +13,6 @@ import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.*;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 
 import java.time.LocalDateTime;
@@ -56,18 +55,17 @@ public class DbHelperUnitTest{
 
     @Test
     public void test_to_getSize_of_elements_into_the_datebase(){
-        dbHelper.deleteAllNote();
+        dbHelper.deleteAllNotes();
         assertEquals(0,dbHelper.getSize());
         dbHelper.insertInto(n0);
         dbHelper.insertInto(n1);
         assertEquals(2,dbHelper.getSize());
-        dbHelper.deleteAllNote();
-
+        dbHelper.deleteAllNotes();
     }
 
     @Test
     public void test_to_insert_Into_DataBase_and_read(){
-        dbHelper.deleteAllNote();
+        dbHelper.deleteAllNotes();
         dbHelper.insertInto(n0);
         dbHelper.insertInto(n1);
         List<Note> list = dbHelper.readNotes();
@@ -81,17 +79,17 @@ public class DbHelperUnitTest{
 
     @Test
     public void test_to_deleteAllNote(){
-        dbHelper.deleteAllNote();
+        dbHelper.deleteAllNotes();
         dbHelper.insertInto(n0);
         dbHelper.insertInto(n1);
         assertEquals(2,dbHelper.getSize());
-        dbHelper.deleteAllNote();
+        dbHelper.deleteAllNotes();
         assertEquals(0,dbHelper.getSize());
     }
 
     @Test
     public void test_to_deleteAnyNote(){
-        dbHelper.deleteAllNote();
+        dbHelper.deleteAllNotes();
         dbHelper.insertInto(n0);
         dbHelper.insertInto(n1);
         List<Note> list = dbHelper.readNotes();
@@ -107,7 +105,7 @@ public class DbHelperUnitTest{
 
     @Test
     public void test_to_readGroups(){
-        dbHelper.deleteAllNote();
+        dbHelper.deleteAllNotes();
         dbHelper.insertInto(n0);
         dbHelper.insertInto(n1);
         dbHelper.insertInto(n2);

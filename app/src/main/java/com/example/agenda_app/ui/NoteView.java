@@ -7,38 +7,38 @@ import android.widget.TextView;
 import com.example.agenda_app.model.Note;
 
 public class NoteView extends LinearLayout {
+    //TODO
+    // - Design UI Component
 
-    private TextView title;
-    private TextView shortContent;
+    private TextView description;
+    private TextView priority;
     private TextView date;
 
-    public NoteView(Context context, Note note) {
+    public NoteView(Context context) {
         super(context);
 
         setViewParameters();
 
-        title = new TextView(this.getContext());
-        shortContent = new TextView(this.getContext());
+        description = new TextView(this.getContext());
+        priority = new TextView(this.getContext());
         date = new TextView(this.getContext());
 
-        setData(note);
-
-        addView(title);
-        addView(shortContent);
+        addView(description);
+        addView(priority);
         addView(date);
     }
 
     private void setViewParameters() {
-        LayoutParams params = (LayoutParams) this.getLayoutParams();
-        params.height = LayoutParams.WRAP_CONTENT;
-        params.width = LayoutParams.MATCH_PARENT;
-
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+            LayoutParams.MATCH_PARENT,
+            LayoutParams.WRAP_CONTENT
+        );
         setLayoutParams(params);
     }
 
     public void setData(Note note) {
-        title.setText("Title");
-        shortContent.setText(note.getDescription());
+        description.setText("Title");
+        priority.setText(note.getDescription());
         date.setText(note.getTime().toString());
     }
 }

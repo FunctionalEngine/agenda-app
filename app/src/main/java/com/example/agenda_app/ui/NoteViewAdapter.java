@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.agenda_app.model.Note;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -15,7 +16,7 @@ public class NoteViewAdapter extends RecyclerView.Adapter<NoteViewAdapter.NoteVi
 
     public static class NoteViewHolder extends RecyclerView.ViewHolder{
 
-        public NoteView noteView;
+        NoteView noteView;
 
         public NoteViewHolder(NoteView noteView) {
             super(noteView);
@@ -23,15 +24,19 @@ public class NoteViewAdapter extends RecyclerView.Adapter<NoteViewAdapter.NoteVi
         }
     }
 
-    public NoteViewAdapter(List<Note> notes) {
-        this.notes = notes;
+    public NoteViewAdapter() {
+        notes = new ArrayList<>();
+    }
 
+    public void setData(List<Note> notes){
+        this.notes = notes;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        return new NoteViewHolder(new NoteView(parent.getContext()));
     }
 
     @Override

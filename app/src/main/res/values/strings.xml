@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">agenda-app</string>
+    <string name="app_name">Agenda App</string>
     <string name="title">Coming up!</string>
+    <string name="createNoteDialogTitle">Create note!</string>
+    <string name="description">Description</string>
+    <string name="create_note_button">+</string>
+    <string name="prioritary_create_note">Priority?</string>
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -15,7 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NotesDbHelper extends SQLiteOpenHelper {
+    //TODO
+    // - Adapt Helper for M-MV-V architecture. Maybe use Room.
 
+    // Singleton instance
     private static NotesDbHelper sInstance;
 
     private static final String DATABASE_NAME = "notes.db";
@@ -29,9 +32,11 @@ public class NotesDbHelper extends SQLiteOpenHelper {
         return sInstance;
     }
 
+
     private NotesDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
@@ -81,7 +86,7 @@ public class NotesDbHelper extends SQLiteOpenHelper {
         return db.delete(NotesContract.NotesEntry.TABLE_NAME, selection, selectionArgs) > 0;
     }
 
-    public void deleteAllNote(){
+    public void deleteAllNotes(){
         SQLiteDatabase db = sInstance.getWritableDatabase();
         db.execSQL(NotesContract.DELETE_ALL_NOTES);
     }
