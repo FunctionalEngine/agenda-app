@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 public class TypeConvert {
-    private static final String TAG="StateConvert";
+    private static final String TAG="TypeConvert";
     @TypeConverter
     public static State toState(String value){
         if (value.equals("COMPLETE")){
