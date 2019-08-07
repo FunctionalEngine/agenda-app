@@ -35,6 +35,13 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.robolectric:robolectric:4.3'
+
+    def room_version = "2.2.0-alpha01"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin
+
+
 }
 
 android {

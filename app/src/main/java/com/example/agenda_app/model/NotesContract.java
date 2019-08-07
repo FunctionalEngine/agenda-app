@@ -2,6 +2,9 @@ package com.example.agenda_app.model;
 
 import android.provider.BaseColumns;
 
+import androidx.room.Delete;
+
+@Deprecated
 public class NotesContract {
 
     private  NotesContract() {}

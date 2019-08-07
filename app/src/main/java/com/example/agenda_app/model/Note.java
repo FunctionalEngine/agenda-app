@@ -1,18 +1,44 @@
 package com.example.agenda_app.model;
 
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity(tableName = "Notes",indices = {@Index(value = {"Namegroup"})})
 public class Note {
+    @ColumnInfo(name = "description")
     private String description;
+    @ColumnInfo(name = "duration")
     private Double duration;
+    @ColumnInfo(name = "time")
     private LocalDateTime time;
+    @ColumnInfo(name = "state")
     private State state;
+    @ColumnInfo(name = "priority")
     private Boolean priority;
+    @ColumnInfo(name = "Namegroup")
     private String group;
-    private Integer id;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
+    public Note(String description, Double duration, LocalDateTime time, State state, Boolean priority, String group, int id) {
+        this.description = description;
+        this.duration = duration;
+        this.time = time;
+        this.state = state;
+        this.priority = priority;
+        this.group = group;
+        this.id = id;
+    }
+
+    @Ignore
     public Note(String description, Double duration, LocalDateTime time, State state, Boolean priority, String group) {
         this.description = description;
         this.duration = duration;
@@ -22,6 +48,7 @@ public class Note {
         this.group = group;
     }
 
+    @Ignore
     public Note(String description, Double duration, LocalDateTime time, Boolean priority, String group) {
         this.description = description;
         this.duration = duration;
@@ -31,6 +58,7 @@ public class Note {
         this.group = group;
     }
 
+    @Ignore
     public Note(String description, LocalDateTime time, State state, Boolean priority, String group) {
         this.description = description;
         this.time = time;
@@ -39,6 +67,7 @@ public class Note {
         this.group = group;
     }
 
+    @Ignore
     public Note(String description, Double duration, LocalDateTime time, Boolean priority) {
         this.description = description;
         this.duration = duration;
@@ -47,6 +76,7 @@ public class Note {
         this.state = State.INCOMPLETE;
     }
 
+    @Ignore
     public Note(String description, LocalDateTime time, Boolean priority) {
         this.description = description;
         this.time = time;
@@ -54,6 +84,7 @@ public class Note {
         this.state = State.INCOMPLETE;
     }
 
+    @Ignore
     public Note(String description, LocalDateTime time, Boolean priority, String group) {
         this.description = description;
         this.time = time;
@@ -62,6 +93,7 @@ public class Note {
         this.state = State.INCOMPLETE;
     }
 
+    @Ignore
     public Note(int id,String description, Double duration, LocalDateTime time, State state, Boolean priority, String group) {
         this.description = description;
         this.duration = duration;
@@ -72,6 +104,7 @@ public class Note {
         this.id = id;
     }
 
+    @Ignore
     public Note(int id,String description, LocalDateTime time, State state, Boolean priority, String group) {
         this.description = description;
         this.time = time;
@@ -81,6 +114,7 @@ public class Note {
         this.id = id;
     }
 
+    @Ignore
     public Note(int id,String description, Double duration, LocalDateTime time, Boolean priority) {
         this.description = description;
         this.duration = duration;
@@ -90,6 +124,7 @@ public class Note {
         this.id = id;
     }
 
+    @Ignore
     public Note(int id,String description, LocalDateTime time, Boolean priority) {
         this.description = description;
         this.time = time;
@@ -98,6 +133,7 @@ public class Note {
         this.id = id;
     }
 
+    @Ignore
     public Note(int id,String description, LocalDateTime time, Boolean priority, String group) {
         this.description = description;
         this.time = time;

@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class NotesDbHelper extends SQLiteOpenHelper {
     //TODO
     // - Adapt Helper for M-MV-V architecture. Maybe use Room.
