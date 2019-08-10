@@ -1,12 +1,10 @@
 package com.example.agenda_app;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,7 +19,7 @@ import java.time.LocalDateTime;
 
 public class MainActivity extends AppCompatActivity {
 
-    NotesViewModel model;
+    private NotesViewModel model;
     private final String NOTES_DISPLAY_FRAGMENT_TAG = "NOTES_DISPLAY";
     private final String CREATE_NOTE_FRAGMENT_TAG = "CREATE_NOTE";
 
@@ -63,14 +61,13 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void createNewNote(View view){
         Note note = new Note(
                 ((EditText) findViewById(R.id.description)).getText().toString(),
                 LocalDateTime.now(),
                 ((CheckBox) findViewById(R.id.priority_check)).isChecked()
         );
-        model.createNote(getApplicationContext(), note);
+        model.insertNote(note);
         returnMainActivity(view);
     }
 

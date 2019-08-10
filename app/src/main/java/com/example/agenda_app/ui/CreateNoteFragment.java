@@ -12,7 +12,7 @@ import com.example.agenda_app.R;
 import com.example.agenda_app.viewmodel.NotesViewModel;
 
 public class CreateNoteFragment extends Fragment {
-    NotesViewModel model;
+    private NotesViewModel model;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

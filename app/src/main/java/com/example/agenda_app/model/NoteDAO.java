@@ -1,5 +1,6 @@
 package com.example.agenda_app.model;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -9,9 +10,9 @@ import androidx.room.Update;
 import java.util.List;
 
 @Dao
-public interface NotesDAO {
+public interface NoteDAO {
     @Query("Select * from notes")
-    List<Note> getAllNotes();
+    LiveData<List<Note>> getAllNotes();
 
     @Insert
     void insertNote(Note note);

@@ -1,38 +1,32 @@
 package com.example.agenda_app.viewmodel;
 
-import android.content.Context;
-import android.os.Build;
+import android.app.Application;
 
-import androidx.annotation.RequiresApi;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.agenda_app.model.Note;
-import com.example.agenda_app.model.NotesDbHelper;
+import com.example.agenda_app.model.NoteRepository;
 
 import java.util.List;
 
-public class NotesViewModel extends ViewModel {
-    MutableLiveData<List<Note>> notes = new MutableLiveData<>();
+public class NotesViewModel extends AndroidViewModel {
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public LiveData<List<Note>> getNotes(Context context){
-        if(notes == null){
-            loadNotes(context);
-        }
+    private final NoteRepository noteRepository;
+    private final LiveData<List<Note>> notes;
+
+    public NotesViewModel(@NonNull Application application) {
+        super(application);
+        noteRepository = new NoteRepository(application, true);
+        notes = noteRepository.getAllNotes();
+    }
+
+    public LiveData<List<Note>> getNotes(){
         return notes;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void loadNotes(Context context) {
-        this.notes.postValue(NotesDbHelper.getInstance(context).readNotes());
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void createNote(Context context, Note note) {
-        NotesDbHelper.getInstance(context).insertInto(note);
-        loadNotes(context);
+    public void insertNote(Note note) {
+        noteRepository.insert(note);
     }
 }

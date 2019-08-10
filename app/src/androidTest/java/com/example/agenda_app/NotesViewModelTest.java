@@ -18,12 +18,9 @@ public class NotesViewModelTest {
 
     @Before
     public void before(){
-        this.notesViewModel = new NotesViewModel();
-        this.testContext = InstrumentationRegistry.getInstrumentation().getContext();
-    }
-
-    @Test
-    public void getNotesTest() {
-        notesViewModel.getNotes(testContext).getValue();
+        this.testContext = InstrumentationRegistry
+                .getInstrumentation()
+                .getContext()
+                .getApplicationContext();
     }
 }

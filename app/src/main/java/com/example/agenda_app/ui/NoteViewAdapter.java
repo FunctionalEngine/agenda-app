@@ -18,7 +18,7 @@ public class NoteViewAdapter extends RecyclerView.Adapter<NoteViewAdapter.NoteVi
 
         NoteView noteView;
 
-        public NoteViewHolder(NoteView noteView) {
+        NoteViewHolder(NoteView noteView) {
             super(noteView);
             this.noteView = noteView;
         }

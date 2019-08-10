@@ -8,17 +8,17 @@ public class NotesGroup implements Group {
     private ArrayList<Note> listNotes;
     private String name_group;
 
-    public NotesGroup(String name_group){
+    public NotesGroup(String name_group) {
         listNotes = new ArrayList<>();
         this.name_group = name_group;
     }
 
     @Override
     public Boolean add(Note note) {
-        if (note.getGroup().equals(name_group)){
+        if (note.getGroup().equals(name_group)) {
             listNotes.add(note);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -58,6 +58,7 @@ public class NotesGroup implements Group {
     public Iterator createIterator() {
         return new Iterator() {
             int index = 0;
+
             @Override
             public boolean hasNext() {
                 return index < listNotes.size();

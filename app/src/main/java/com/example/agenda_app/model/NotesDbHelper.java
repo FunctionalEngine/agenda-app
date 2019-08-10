@@ -1,6 +1,5 @@
 package com.example.agenda_app.model;
 
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -16,8 +15,6 @@ import java.util.List;
 
 @Deprecated
 public class NotesDbHelper extends SQLiteOpenHelper {
-    //TODO
-    // - Adapt Helper for M-MV-V architecture. Maybe use Room.
 
     // Singleton instance
     private static NotesDbHelper sInstance;

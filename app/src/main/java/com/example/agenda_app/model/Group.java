@@ -2,7 +2,7 @@ package com.example.agenda_app.model;
 
 import java.util.Iterator;
 
-public interface Group {
+interface Group {
     Boolean add(Note note);
     void remove(Note note);
     void remove(int pos);

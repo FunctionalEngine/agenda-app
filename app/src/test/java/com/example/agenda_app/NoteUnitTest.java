@@ -19,8 +19,8 @@ public class NoteUnitTest {
     public void struct_of_class_Note_null_atributes() {
         Note n = new Note("nota", LocalDateTime.of(2015,4,7,12,59,30), true);
 
-        assertEquals(null, n.getDuration());
-        assertEquals(null, n.getGroup());
+        assertNull(n.getDuration());
+        assertNull(n.getGroup());
     }
 
     @Test
