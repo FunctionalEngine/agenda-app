@@ -5,6 +5,7 @@
     <color name="colorPrimaryLight" tools:keep="@color/colorPrimaryLight">#484848</color>
     <color name="colorSecundary" tools:keep="@color/colorSecundary">#fafafa</color>
     <color name="colorSecundaryDark" tools:keep="@color/colorSecundaryDark">#c7c7c7</color>
+    <color name="colorSecundaryDark2" tools:keep="@color/colorSecundaryDark2">#f0f0f0</color>
     <color name="colorSecundaryLight" tools:keep="@color/colorSecundaryLight">#ffffff</color>
     <color name="textOnP">#ffffff</color>
     <color name="textOnS">#000000</color>

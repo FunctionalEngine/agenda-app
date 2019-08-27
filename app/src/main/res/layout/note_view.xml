@@ -3,8 +3,9 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_margin="20dp"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/rounded_note_view">
 
     <TextView
         android:id="@+id/description"

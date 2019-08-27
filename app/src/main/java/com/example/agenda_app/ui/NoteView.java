@@ -19,11 +19,9 @@ public class NoteView extends LinearLayout {
 
     public NoteView(Context context) {
         super(context);
-
         inflate(getContext(), R.layout.note_view, this);
-
-        description = (TextView) findViewById(R.id.description);
-        date = (TextView) findViewById(R.id.date);
+        description = findViewById(R.id.description);
+        date = findViewById(R.id.date);
     }
 
     public void setData(Note note) {

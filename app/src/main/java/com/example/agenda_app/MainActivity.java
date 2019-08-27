@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void createNewNote(View view){
         Note note = new Note(
-                ((EditText) findViewById(R.id.description)).getText().toString(),
+                ((EditText) findViewById(R.id.note_description)).getText().toString(),
                 LocalDateTime.now(),
                 ((CheckBox) findViewById(R.id.priority_check)).isChecked()
         );
